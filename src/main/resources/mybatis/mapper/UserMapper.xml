@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+    <select id="selectAllUser" resultType="com.example.pojo.User">
+        select *
+        from user
+    </select>
+    <select id="selectUserById" resultType="com.example.pojo.User" parameterType="int">
+        select *
+        from user
+        where id = #{id}
+    </select>
+    <select id="selectUserByName" resultType="com.example.pojo.User" parameterType="String">
+        select *
+        from user
+        where username = #{name}
+    </select>
+    <select id="selectUserByNameForBasic" resultType="com.example.pojo.User" parameterType="String">
+        select *
+        from user
+        where enabled=1 and username = #{name}
+    </select>
+    <delete id="deleteUserById" parameterType="int">
+        delete
+        from user
+        where id = #{id}
+    </delete>
+    <insert id="addUser" parameterType="com.example.pojo.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user (password, username, enabled)
+        VALUES (#{password}, #{username}, #{enabled})
+    </insert>
+    <update id="updateUser" parameterType="com.example.pojo.User">
+        update user
+        set username=#{username},
+            password=#{password},
+            enabled=#{enabled}
+        where id = #{id}
+    </update>
+</mapper>

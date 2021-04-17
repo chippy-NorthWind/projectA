@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.PermitMapper">
+
+    <select id="selectAuthByUserName" parameterType="String" resultType="com.example.pojo.Permit">
+        select DISTINCT *
+        from user_permit,
+             permit,
+             user
+        where user.id = user_permit.userid
+          and permit.id = user_permit.permitId
+          and username = #{name}
+    </select>
+
+    <insert id="givePtoUserById" parameterType="int">
+        insert into user_permit(userid, permitId)
+        VALUES (#{uid}, #{pid})
+    </insert>
+
+    <insert id="addPermit" parameterType="com.example.pojo.Permit">
+        insert into permit(permitName)
+        values (#{permitName})
+    </insert>
+
+    <select id="selectAllAuth" resultType="com.example.pojo.Permit">
+        select *
+        from permit
+    </select>
+
+    <select id="selectAuthByUsernameInString" resultType="string" parameterType="string">
+        select DISTINCT permitName
+        from user_permit,
+             permit,
+             user
+        where user.id = user_permit.userid
+          and permit.id = user_permit.permitId
+          and username = #{name}
+    </select>
+
+    <delete id="deleteByUsername" parameterType="string">
+        delete
+        from user_permit
+        where userid = (
+            select id
+            from user
+            where username = #{username}
+        )
+    </delete>
+
+    <delete id="deleteByUserId" parameterType="int">
+        delete
+        from user_permit
+        where userid=#{id}
+    </delete>
+</mapper>

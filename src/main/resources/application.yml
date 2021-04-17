@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/projectdemo?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  thymeleaf:
+    cache: false
+
+mybatis:
+  type-aliases-package: com.example.pojo
+  mapper-locations: classpath:mybatis/mapper/*.xml
+server:
+  port: 8081
